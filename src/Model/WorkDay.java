@@ -110,14 +110,10 @@ public class WorkDay {
      * @param e         An Employee
      */
     public void occupiesEmployee(WorkShift workShift, Employee e) {
-        if(!e.isOccupied(workShift.START, workShift.END) && e.hasCertifices(workShift.getAllCertificate())){
-            long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
-            OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.getOccupiedTimes().add(ot);
-            workShift.registerOccupation(e, ot);
-        } else {
-            //TODO
-        }
+        long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
+        OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
+        e.getOccupiedTimes().add(ot);
+        workShift.registerOccupation(e, ot);
     }
 
     /**
@@ -126,20 +122,12 @@ public class WorkDay {
      * @param workShift a WorkShift
      * @param e         an Employee
      */
-    public Employee reOccupieEmployee(WorkShift workShift, Employee e) {
-        Employee unOccupied;
-        if(!e.isOccupied(workShift.START, workShift.END)){
-            unOccupied = workShift.getEmployee();
-            workShift.clearWorkShiftOccupation();
-            long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
-            OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
-            e.getOccupiedTimes().add(ot);
-            workShift.registerOccupation(e, ot);
-        } else {
-            unOccupied = e;
-            //TODO
-        }
-        return unOccupied;
+    public void reOccupieEmployee(WorkShift workShift, Employee e) {
+        workShift.clearWorkShiftOccupation();
+        long endOccupiedTime = (workShift.END) + guaranteedFreeTime;
+        OccupiedTime ot = new OccupiedTime(workShift.START, endOccupiedTime);
+        e.getOccupiedTimes().add(ot);
+        workShift.registerOccupation(e, ot);
     }
 
     /*

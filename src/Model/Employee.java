@@ -134,13 +134,4 @@ public class Employee {
     public void newName(String name) {
         this.name = name;
     }
-
-    public boolean hasCertifices(List<Certificate> certificates) {
-        for (EmployeeCertificate ec : this.certificates){
-            if(!certificates.contains(ec.getCertificate())){
-                return false;
-            }
-        }
-        return true;
-    }
 }
